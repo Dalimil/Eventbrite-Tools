@@ -1,4 +1,4 @@
-# Eventbrite Tools - Scripts and bots for Eventbrite website
+# Eventbrite Tools - Scripts and bots for Eventbrite
 
 ## Eventbrite Ticket Bot - ticket-getter.js
 
@@ -6,7 +6,7 @@ This bot is intended to be run a short time (a minute or two) before Eventbrite 
 
 **Run this script only a short time before the tickets are released because it's quite aggresive in terms of its network activity. **
 
-### Usage
+#### Usage
 1. Open Firefox and navigate to your Eventbrite event
 2. Open Scratchpad (Shift + F4) and Open file ticket-getter.js
 3. Click Run
@@ -20,7 +20,7 @@ Simply change the python file to indicate which email address should be used and
 
 I like to run this on http://c9.io/ (but you can also run it locally with 'python notifier.py').
 
-## TODO
+#### TODO
 Unfortunately, Cloud9 stops all processes after 2 hours. 
 
 > Since Cloud9 workspaces are intended for active development (not production or other users), different actions are taken on workspaces after certain times of inactivity.
