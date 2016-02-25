@@ -1,7 +1,16 @@
+/**
+  * This script can be used to get Eventbrite event tickets. You must run it from the Eventbrite event page.
+  * Change 'ticketPositionInList' variable to indicate the position of your desired ticket type in the list (default = 0 is the first ticket type)
+  * @author Dalimil Hajek
+  */ 
+
 var ticketPositionInList = 0 // There may be several ticket types - set to 0 to select the first one (or change accordingly)
 
-if(location.href.indexOf("eventbrite") == -1){
-	throw new Error("You must go to the Eventbrite event page and run the script from there!")
+function checkLocation(){
+	if(location.href.indexOf("eventbrite") == -1){
+		console.log("You must go to the Eventbrite event page and run the script from there!");
+		throw new Error("You must go to the Eventbrite event page and run the script from there!");
+	}
 }
 
 
@@ -55,15 +64,16 @@ function getTicket(data){
 	return ticket;
 }
 
-var repeat = null;
+var repeated = null;
 function run(){
+	checkLocation();
 	$.get(location.href, function( data ) {
 		// console.log(data);
 		ticket = getTicket(data);
 
 		if(ticket == ""){
 			console.log("Unsuccessful: "+(new Date()).toLocaleTimeString());
-			repeat = setTimeout(run, 500);
+			repeated = setTimeout(run, 500);
 			return;
 		} else{
 			var eid = $("form input[name=eid]").attr('value');
@@ -77,12 +87,14 @@ function run(){
 }
 
 function stop(){
-	if(repeat == null) return;
-	clearTimeout(repeat);
-	repeat = null;
+	if(repeated == null) return false;
+	clearTimeout(repeated);
+	repeated = null;
+	return true;
 }
 
 $( document ).ready(function() {
+	checkLocation();
 	run();
 });
 
