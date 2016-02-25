@@ -20,12 +20,5 @@ Eventbrite bot for checking event status and notifying the user by email when ti
 
 Simply change the python file to indicate which email address should be used and which events (URLs) should be periodically checked. You will receive an email notification when one of the Eventbrite events changes.
 
-I like to run this on http://c9.io/ (but you can also run it locally with 'python notifier.py').
-
-#### TODO
-Unfortunately, Cloud9 stops all processes after 2 hours. 
-
-> Since Cloud9 workspaces are intended for active development (not production or other users), different actions are taken on workspaces after certain times of inactivity.
-> Workspaces must be accessed via the IDE in order to be considered active again. Accessing a preview of the application or even the admin panel of a Wordpress install is not considered active.
-
-**TODO: Create a script to access its own workspace to renew the 'timeout'.**
+#### Usage
+You can run it locally with 'python ticket-notifier.py' but the best thing to do is to find a server/IaaS where you can leave this running...
