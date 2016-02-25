@@ -4,13 +4,15 @@
 
 This bot is intended to be run a short time (a minute or two) before Eventbrite event tickets are released. Its main purpose is to secure tickets for events which are sold out within seconds after tickets are released. 
 
-**Run this script only a short time before the tickets are released because it's quite aggresive in terms of its network activity. **
+**Run this script only a short time before the tickets are released because it's quite aggresive in terms of its network activity.**
 
 #### Usage
 1. Open Firefox and navigate to your Eventbrite event
 2. Open Scratchpad (Shift + F4) and Open file ticket-getter.js
 3. Click Run
 4. Call stop(); from the console to quit (try several times if not working) 
+
+
 
 ## EventBrite Ticket Notifier - ticket-notifier.py
 
