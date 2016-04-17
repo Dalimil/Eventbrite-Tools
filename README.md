@@ -9,8 +9,10 @@ This bot is intended to be run a short time (a minute or two) before Eventbrite 
 #### Usage
 1. Open Firefox and navigate to your Eventbrite event
 2. Open Scratchpad (Shift + F4) and Open file ticket-getter.js
-3. Click Run
-4. Call stop(); from the console to quit (try several times if not working) 
+3. Set startTime to the tickets opening time 
+<code>var startTime = '2016-05-04T00:00:00.00Z'; //May the 4th be with you</code>
+4. Click Run
+5. Call stop(); from the console to quit (try several times if not working) 
 
 
 
