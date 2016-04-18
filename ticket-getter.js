@@ -5,15 +5,16 @@
   * @author Bedis ElAcheche
   */ 
 
-var ticketPositionInList = 0 // There may be several ticket types - set to 0 to select the first one (or change accordingly)
+var ticketPositionInList = 0; // There may be several ticket types - set to 0 to select the first one (or change accordingly)
+var startTime = "2016-04-18T15:59:55"; // When should this script start checking for tickets (e.g. 5 seconds to 4pm)
+//var startTime = ""; // uncomment to start immediately 
 
-function checkLocation(){
+function checkLocation() {
 	if(location.href.indexOf("eventbrite") == -1){
 		console.log("You must go to the Eventbrite event page and run the script from there!");
 		throw new Error("You must go to the Eventbrite event page and run the script from there!");
 	}
 }
-
 
 function post(path, params) {
 	var form = document.createElement("form");
@@ -33,7 +34,7 @@ function post(path, params) {
 	form.submit();
 }
 
-function findAll(data, s){
+function findAll(data, s) {
 	var rx = new RegExp(s, "g");
 	var matches = new Array();
 	while((match = rx.exec(data)) !== null){
@@ -42,7 +43,7 @@ function findAll(data, s){
 	return matches;
 }
 
-function getTicket(data){
+function getTicket(data) {
 	ticketMatches = findAll(data, "ticket_form_element_name\":\"([^\"]+)\"");
 	quantityMatches = findAll(data, "quantity_remaining\":([^,]+),");
 	console.log(quantityMatches);
@@ -65,8 +66,8 @@ function getTicket(data){
 	return ticket;
 }
 
-var repeated = null;
-function run(){
+var repeat = true;
+function run() {
 	checkLocation();
 	$.get(location.href, function( data ) {
 		// console.log(data);
@@ -74,7 +75,9 @@ function run(){
 
 		if(ticket == ""){
 			console.log("Unsuccessful: "+(new Date()).toLocaleTimeString());
-			repeated = setTimeout(run, 500);
+			if(repeat) {
+				setTimeout(run, 500);
+			}
 			return;
 		} else{
 			var eid = $("form input[name=eid]").attr('value');
@@ -87,25 +90,44 @@ function run(){
 	});
 }
 
-function stop(){
-	if(repeated == null) return false;
-	clearTimeout(repeated);
-	repeated = null;
-	return true;
+function stop() {
+	if(repeat == false){
+		return "Already stopped";
+	}
+	repeat = false;
+	return "Stopped";
 }
 
-function getTimeRemaining(endtime){
-  return Date.parse(endtime) - Date.parse(new Date());
+function getTimeRemaining() {
+	var diff = Date.parse(startTime) - Date.now();
+	return Math.max(0, diff || 0);
 }
+
+function msToString(ms) {
+	var s = Math.floor(ms / 1000);
+	var m = Math.floor(s / 60);
+	s = s % 60;
+	var h = Math.floor(m / 60);
+	m = m % 60;
+	return (h + " h " + m + " min " + s + " s");
+}
+
+function initScheduler() {
+	if (typeof scheduler !== 'undefined') {
+	    clearTimeout(scheduler); // when rerun
+	}
+	return null;
+}
+
+var scheduler = initScheduler();
 
 $( document ).ready(function() {
-	var startTime = '2016-05-04T00:00:00.00Z';
-	var timer = getTimeRemaining(startTime) || 0;
-	if (timer < 0){
-		timer = 0;
-	}
-	setTimeout(function(){
-		checkLocation();
-		run();
-	}, timer);
+	checkLocation();
+	
+
+	var timeToStart = getTimeRemaining();
+	console.log("Scheduled start in: " + msToString(timeToStart));
+	scheduler = setTimeout(function(){ run(); }, timeToStart);
 });
+
+
