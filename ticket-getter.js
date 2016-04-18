@@ -2,6 +2,7 @@
   * This script can be used to get Eventbrite event tickets. You must run it from the Eventbrite event page.
   * Change 'ticketPositionInList' variable to indicate the position of your desired ticket type in the list (default = 0 is the first ticket type)
   * @author Dalimil Hajek
+  * @author Bedis ElAcheche
   */ 
 
 var ticketPositionInList = 0 // There may be several ticket types - set to 0 to select the first one (or change accordingly)
@@ -93,8 +94,18 @@ function stop(){
 	return true;
 }
 
-$( document ).ready(function() {
-	checkLocation();
-	run();
-});
+function getTimeRemaining(endtime){
+  return Date.parse(endtime) - Date.parse(new Date());
+}
 
+$( document ).ready(function() {
+	var startTime = '2016-05-04T00:00:00.00Z';
+	var timer = getTimeRemaining(startTime) || 0;
+	if (timer < 0){
+		timer = 0;
+	}
+	setTimeout(function(){
+		checkLocation();
+		run();
+	}, timer);
+});
