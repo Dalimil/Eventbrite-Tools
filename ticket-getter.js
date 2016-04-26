@@ -1,11 +1,15 @@
 /**
   * This script can be used to get Eventbrite event tickets. You must run it from the Eventbrite event page.
   * Change 'ticketPositionInList' variable to indicate the position of your desired ticket type in the list (default = 0 is the first ticket type)
+  * Change 'startTime' variable to indicate the time when we should start checking for tickets - typically the time when the tickets are released
+  * If you change 'ticketQuantity' variable above the allowed limit (often anything more than 1), the whole process will fail
+  *
   * @author Dalimil Hajek
   * @author Bedis ElAcheche
   */ 
 
 var ticketPositionInList = 0; // There may be several ticket types - set to 0 to select the first one (or change accordingly)
+var ticketQuantity = 1; // How many tickets you want to buy? - WARNING: Often limited by the event organizer to 1
 var startTime = "2016-04-18T15:59:55"; // When should this script start checking for tickets (e.g. 5 seconds to 4pm)
 //var startTime = ""; // uncomment to start immediately 
 
@@ -83,7 +87,7 @@ function run() {
 			var eid = $("form input[name=eid]").attr('value');
 			console.log(ticket +" "+eid);
 			var payload = {'eid': eid, 'has_javascript': 1};
-			payload[ticket] = 1;
+			payload[ticket] = ticketQuantity;
 			console.log(payload);
 			post("https://www.eventbrite.co.uk/orderstart", payload);
 		}    
@@ -124,7 +128,6 @@ var scheduler = initScheduler();
 $( document ).ready(function() {
 	checkLocation();
 	
-
 	var timeToStart = getTimeRemaining();
 	console.log("Scheduled start in: " + msToString(timeToStart));
 	scheduler = setTimeout(function(){ run(); }, timeToStart);
