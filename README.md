@@ -11,7 +11,7 @@ This bot is intended to be run a short time (a minute or two) before Eventbrite 
 2. Open Scratchpad (Shift + F4) and Open file ticket-getter.js
 3. Set `startTime` to the tickets opening time
 4. Click Run
-5. Call `stop();` from the console to quit
+5. Call `stop();` from the console (press F12 to open) to quit
 
 
 
