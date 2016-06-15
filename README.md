@@ -15,7 +15,7 @@ This bot is intended to be run a short time (a minute or two) before Eventbrite 
 
 
 
-## EventBrite Ticket Notifier - ticket-notifier.py
+## EventBrite Ticket Notifier (advanced) - ticket-notifier.py
 
 Eventbrite bot for checking event status and notifying the user by email when ticket status changes.
 
