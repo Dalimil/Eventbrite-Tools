@@ -4,8 +4,7 @@
  * Change 'startTime' variable to indicate the time when we should start checking for tickets - typically the time when the tickets are released
  * If you change 'ticketQuantity' variable above the allowed limit (often anything more than 1), the whole process will fail
  *
- * @author Dalimil Hajek
- * @author Bedis ElAcheche
+ * The whole project can be found here: https://github.com/Dalimil/Eventbrite-Tools
  */
 var ticketPositionInList = 0; // There may be several ticket types - set to 0 to select the first one (or change accordingly)
 var ticketQuantity = 1; // How many tickets you want to buy? - WARNING: Often limited by the event organizer to 1
@@ -137,3 +136,7 @@ $(document).ready(function() {
 		run();
 	}, timeToStart);
 });
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
