@@ -1,8 +1,8 @@
-# Eventbrite Tools - Scripts and bots for Eventbrite
+# Eventbrite Tools - Scripts and Bots for Eventbrite
 
-## Eventbrite Ticket Bot - ticket-getter.js
+## Eventbrite Ticket Bot - [`ticket-getter.js`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-getter.js)
 
-This bot is intended to be run a short time (a minute or two) before Eventbrite event tickets are released. Its main purpose is to secure tickets for events which are sold out within seconds after tickets are released. 
+This bot is intended to be run a short time (e.g. 30s) before Eventbrite event tickets are released. Its main purpose is to secure tickets for events which are sold out very quickly. 
 
 **Run this script only a short time before the tickets are released because it's quite aggresive in terms of its network activity.**
 
@@ -15,7 +15,7 @@ This bot is intended to be run a short time (a minute or two) before Eventbrite 
 
 
 
-## EventBrite Ticket Notifier (advanced) - ticket-notifier.py
+## EventBrite Ticket Notifier (advanced) - [`ticket-notifier.py`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-notifier.py)
 
 Eventbrite bot for checking event status and notifying the user by email when ticket status changes.
 
