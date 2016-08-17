@@ -1,8 +1,8 @@
 # Eventbrite Tools - Scripts and Bots for Eventbrite
 
-## EventBrite Ticket Info - [`ticket-info.js`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-info.js)
+## Eventbrite Ticket Info - [`ticket-info.js`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-info.js)
 
-This script allows you to find all information about EventBrite event tickets in advance - their quantity, price and release date. It is even more useful when used in combination with the Eventbrite Bot described below (`ticket-getter.js`).
+This script allows you to find all information about Eventbrite event tickets in advance - their quantity, price and release date. It is even more useful when used in combination with the Eventbrite Bot described below (`ticket-getter.js`).
 
 #### Usage
 1. Open Firefox and navigate to your Eventbrite event
@@ -12,7 +12,7 @@ This script allows you to find all information about EventBrite event tickets in
 
 ## Eventbrite Ticket Bot - [`ticket-getter.js`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-getter.js)
 
-This bot is intended to be run a short time (e.g. 10s) before Eventbrite event tickets are released (use `ticket-info.js` script described above to find the ticket release time). Its main purpose is to secure tickets for events which are sold out very quickly. 
+This bot is intended to be run a short time (e.g. 10s) before Eventbrite event tickets are released (use the `ticket-info.js` script described above to find the ticket release time). Its main purpose is to secure tickets for events which are sold out very quickly. 
 
 **Run this script only a short time before the tickets are released because it's quite aggresive in terms of its network activity.**
 
