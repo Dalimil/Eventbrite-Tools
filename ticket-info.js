@@ -11,12 +11,14 @@ function checkLocation() {
 	}
 }
 
+var EVENTBRITE_CHANGED_ERROR = "Eventbrite changed something and broke my script. Please let me know.";
+
 function findCollection(data) {
-	var errorMsg = "Eventbrite changed something and broke my script. Please let me know.";
 	var pattern = /collection[\s:]+\[{.*/g;
 	var res = data.match(pattern);
 	if(res == null || res.length == 0) {
-		console.log(errorMsg);
+		console.log("Ticket information is not available at this time. Finding alternative info...");
+		return null;
 	}
 	var collectionText = '{' + res[0].replace("collection", '"collection"') + '}';
 	collectionText = collectionText.replace(/\t/g, '');
@@ -25,10 +27,30 @@ function findCollection(data) {
 	try {
 		result = JSON.parse(collectionText);
 	} catch(err) {
-		console.log(errorMsg, err);
+		console.log(EVENTBRITE_CHANGED_ERROR, err);
 		throw err;
 	}
 	return result.collection;
+}
+
+function findModel(data) {
+	var pattern = /model[\s:]+{.*},/g;
+	var res = data.match(pattern);
+	if(res == null || res.length == 0) {
+		console.log(EVENTBRITE_CHANGED_ERROR);
+		throw new Error(EVENTBRITE_CHANGED_ERROR);
+	}
+	var modelText = '{' + res[0].replace("model", '"model"').replace(/\t/g, '');
+	modelText = modelText.substr(0, modelText.lastIndexOf(",")) + '}';
+
+	var result = null;
+	try {
+		result = JSON.parse(modelText);
+	} catch(err) {
+		console.log(EVENTBRITE_CHANGED_ERROR, err);
+		throw err;
+	}
+	return result.model;
 }
 
 function parseInteresting(collectionItem) {
@@ -50,6 +72,23 @@ function parseInteresting(collectionItem) {
 			"start": new Date(collectionItem.start_sales).toLocaleFormat(),
 			"end": new Date(collectionItem.end_sales).toLocaleFormat()
 		}
+	};
+}
+
+function parseModelItems(model) {
+	return {
+		"is_free": model.is_free,
+		"capacity": model.capacity,
+		"remaining_tickets": model.remaining_tickets,
+		"status": {
+			"status_is_sold_out": model.status_is_sold_out,
+			"status_is_ended": model.status_is_ended
+		},
+		"dates": {
+			"start": model.first_ticket_sales_start_date,
+			"notification_text": model.not_yet_started_notification_text
+		},
+		"most_recent_event_update": new Date(model.changed).toLocaleFormat()
 	};
 }
 
@@ -75,16 +114,29 @@ function run() {
 	checkLocation();
 	var markup = document.documentElement.innerHTML;
 	var collection = findCollection(markup);
-	if(collection == null) return;
+	var resultString = null;
 
-	var interestingCollection = [];
-	collection.forEach(function(item) {
-		interestingCollection.push(parseInteresting(item));
-	});
+	if(collection == null) {
+		var model = findModel(markup);
+		var simpleModel = parseModelItems(model);
+		resultString = JSON.stringify(simpleModel, null, 2);
+		resultString = "<strong>Ticket info not yet available. Try later..." +
+			"</strong>\n\n" + resultString;
+	} else {
+		var interestingCollection = [];
+		collection.forEach(function(item) {
+			interestingCollection.push(parseInteresting(item));
+		});
 
-	// Print results
-	console.log(interestingCollection); // debug
-	var resultString = JSON.stringify(interestingCollection, null, 2);
+		// Print results
+		console.log(interestingCollection); // debug
+		resultString = JSON.stringify(interestingCollection, null, 2);
+		if(interestingCollection.length > 1) {
+			resultString = "<strong>There are several ticket classes..." +
+				"</strong>\n\n" + resultString;
+		}
+	}
+
 	console.log(resultString);
 	createResultTooltip(resultString);
 }
