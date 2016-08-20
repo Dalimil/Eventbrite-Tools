@@ -103,10 +103,22 @@ function createResultTooltip(data) {
 	// Create
 	tooltip = document.createElement("div");
 	tooltip.id = id;
-	tooltip.innerHTML = data;
+	
 	tooltip.style.cssText = "width: 40%; max-height: 75%; white-space: pre; overflow-y: auto; " +
 		"background-color: #333; color: #EEE; border-radius: 6px; box-shadow: 0px 0px 5px #999; " +
 		"position: fixed; left: 1em; top: 6em; z-index: 1; padding: 1em 2em 1em 1em;";
+
+	closeButton = document.createElement("a");
+	closeButton.innerHTML = "&times;";
+	closeButton.href = "javascript:void(0)";
+	closeButton.onclick = function() { document.body.removeChild(this.parentElement); };
+	closeButton.style = "float: right; font-weight: bold; font-size: 2.5em; line-height: 1em;";
+
+	content = document.createElement("div");
+	content.innerHTML = data;
+
+	tooltip.appendChild(closeButton);
+	tooltip.appendChild(content);
 	document.body.appendChild(tooltip);    
 }
 
