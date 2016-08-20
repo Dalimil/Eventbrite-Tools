@@ -108,13 +108,14 @@ function createResultTooltip(data) {
 		"background-color: #333; color: #EEE; border-radius: 6px; box-shadow: 0px 0px 5px #999; " +
 		"position: fixed; left: 1em; top: 6em; z-index: 1; padding: 1em 2em 1em 1em;";
 
-	closeButton = document.createElement("a");
+	var closeButton = document.createElement("a");
 	closeButton.innerHTML = "&times;";
 	closeButton.href = "javascript:void(0)";
 	closeButton.onclick = function() { document.body.removeChild(this.parentElement); };
-	closeButton.style = "float: right; font-weight: bold; font-size: 2.5em; line-height: 1em;";
+	closeButton.style = "float: right; font-weight: bold; font-size: 2.5em; line-height: 1em;" +
+		"position: fixed; left: 40%";
 
-	content = document.createElement("div");
+	var content = document.createElement("div");
 	content.innerHTML = data;
 
 	tooltip.appendChild(closeButton);
