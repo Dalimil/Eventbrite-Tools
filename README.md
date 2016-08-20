@@ -23,3 +23,15 @@ This bot is intended to be run a short time (e.g. 10s) before Eventbrite event t
 4. Click Run
 5. Call `stop();` from the console (press F12 to open) to quit
 
+## Screenshots
+This is what the pop-up that `ticket-info.js` script generates looks like:
+
+![Eventbrite ticket-info.js popup #1 - Dalimil Hajek](https://github.com/Dalimil/Eventbrite-Tools/blob/master/screenshots/event_tickets_second.png)
+
+You always know when the ticket sales start and how many tickets are going to be released:
+
+![Eventbrite ticket-info.js popup #2 - Dalimil Hajek](https://github.com/Dalimil/Eventbrite-Tools/blob/master/screenshots/event_unavailable.png)
+
+It gives you an idea of how many people are going to attend (no more tricks from the organizers):
+
+![Eventbrite ticket-info.js popup #3 - Dalimil Hajek](https://github.com/Dalimil/Eventbrite-Tools/blob/master/screenshots/event_tickets_first.png)
