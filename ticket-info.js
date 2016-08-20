@@ -69,8 +69,8 @@ function parseInteresting(collectionItem) {
 			"on_sale_status": collectionItem.on_sale_status
 		},
 		"dates": {
-			"start": new Date(collectionItem.start_sales).toLocaleFormat(),
-			"end": new Date(collectionItem.end_sales).toLocaleFormat()
+			"sales_start": new Date(collectionItem.start_sales).toLocaleFormat(),
+			"sales_end": new Date(collectionItem.end_sales).toLocaleFormat()
 		}
 	};
 }
@@ -85,7 +85,7 @@ function parseModelItems(model) {
 			"status_is_ended": model.status_is_ended
 		},
 		"dates": {
-			"start": model.first_ticket_sales_start_date,
+			"sales_start": model.first_ticket_sales_start_date,
 			"notification_text": model.not_yet_started_notification_text
 		},
 		"most_recent_event_update": new Date(model.changed).toLocaleFormat()
