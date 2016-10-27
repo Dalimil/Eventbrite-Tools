@@ -35,3 +35,10 @@ You always know when the ticket sales start and how many tickets are going to be
 It gives you an idea of how many people are going to attend (no more tricks from the organizers):
 
 ![Eventbrite ticket-info.js popup #3 - Dalimil Hajek](https://github.com/Dalimil/Eventbrite-Tools/blob/master/screenshots/event_tickets_first.png)
+
+
+## Bugs and Issues
+1. There are two types of layout for Eventbrite event pages. Both scripts only work for events whose Eventbrite page contains a big header image (see screenshots) - this is the type that you will see most often. Neither script will work for events that list tickets and prices in a table - see https://github.com/Dalimil/Eventbrite-Tools/issues/3#issuecomment-256580440.
+2. There is currently a bug affecting paid events that will prevent you from filling in the required fields and thus finishing the order.
+
+**Pull requests welcome.**
