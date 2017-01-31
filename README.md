@@ -40,5 +40,6 @@ It gives you an idea of how many people are going to attend (no more tricks from
 ## Bugs and Issues
 1. There are two types of layout for Eventbrite event pages. Both scripts only work for events whose Eventbrite page contains a big header image (see screenshots) - this is the type that you will see most often. Neither script will work for events that list tickets and prices in a table - see https://github.com/Dalimil/Eventbrite-Tools/issues/3#issuecomment-256580440.
 2. There is currently a bug affecting paid events that will prevent you from filling in the required fields and thus finishing the order.
+3. Ticket-Info script used to obtain more information about ticket quantity, but it recently stopped working. Hint: this JSON item suddenly appeared in their collection: `"json_blacklist_set": ["event_tz", "event_level_info", "quantity_sold", "quantity_remaining", "request", "quantity_total", "waitlist_settings", "taxoptions"]`. Can someone figure this out? (Also see https://github.com/Dalimil/Eventbrite-Tools/issues/4)
 
 **Pull requests welcome.**
