@@ -92,6 +92,30 @@ function parseModelItems(model) {
 	};
 }
 
+function parseMediatorData(data) {
+	return data.collection.map(function(item) {
+		return {
+			"name": item.ticket_name,
+			"quantity": {
+				//"quantity_total": collectionItem.quantity_total,
+				//"quantity_sold": collectionItem.quantity_sold,
+				"quantity_remaining": item.number_of_tickets_remaining
+			},
+			"cost": item.is_free ? "Free" :
+				(item.total_cost == null ? item.ticket_price : item.total_cost.display),
+			"status": {
+				"status_is_sold_out": item.status_is_sold_out,
+				"status_is_ended": item.status_is_ended,
+				"on_sale_status": item.on_sale_status
+			},
+			"dates": {
+				"sales_start": new Date(item.start_sales).toLocaleFormat(),
+				"sales_end": new Date(item.end_sales).toLocaleFormat()
+			}
+		};
+	});
+}
+
 function createResultTooltip(data) {
 	var id = "tooltip-custom-event-info";
 	var tooltip = document.getElementById(id);
@@ -123,13 +147,23 @@ function createResultTooltip(data) {
 	document.body.appendChild(tooltip);    
 }
 
+
 function run() {
 	checkLocation();
 	var markup = document.documentElement.innerHTML;
 	var collection = findCollection(markup);
 	var resultString = null;
 
-	if(collection == null) {
+	var mediator = require('mediatorjs');
+	var mData = mediator && mediator.get('ticketOrderOptions');
+	if (mData) {
+		var mParsedInfos = parseMediatorData(mData);
+		resultString = JSON.stringify(mParsedInfos, null, 2);
+		if(mParsedInfos.length > 1) {
+			resultString = "<strong>There are several ticket classes..." +
+				"</strong>\n\n" + resultString;
+		}
+	} else if(collection == null) {
 		var model = findModel(markup);
 		var simpleModel = parseModelItems(model);
 		resultString = JSON.stringify(simpleModel, null, 2);
