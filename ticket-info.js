@@ -71,6 +71,13 @@ function run() {
 	const mediator = require('mediatorjs');
 	const data = mediator && mediator.get('ticketOrderOptions');
 	if (data) {
+		const source = document.documentElement.innerHTML;
+		const quantities = source.match(/\"inventoryLevel\":[0-9]+/g).map(s => s.replace(/"inventoryLevel":/, ""));
+		if (quantities.length == data.collection.length) {
+			data.collection.forEach((item, ind) => {
+				item.number_of_tickets_remaining = item.number_of_tickets_remaining || quantities[ind];
+			});
+		}
 		const parsedInfos = parseMediatorData(data);
 		resultString = JSON.stringify(parsedInfos, null, 2);
 		if(parsedInfos.length > 1) {
