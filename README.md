@@ -12,7 +12,7 @@ This script allows you to find all information about Eventbrite event tickets in
 
 ## Eventbrite Ticket Bot - [`ticket-getter.js`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-getter.js)
 
-This bot is intended to be run a short time (e.g. 10s) before Eventbrite event tickets are released (use the `ticket-info.js` script described above to find the ticket release time). Its main purpose is to secure tickets for events which are sold out very quickly. 
+This bot is intended to be run a short time (e.g. 10s) before Eventbrite event tickets are released (use the `ticket-info.js` script described above to find the ticket release time). Its main purpose is to redirect your browser to the checkout page as quickly as possible, thus securing tickets for events which are sold out very quickly. 
 
 **Use the startTime script option to run it only a short time before the tickets are released because it's quite aggresive in terms of its network activity.**
 
@@ -21,7 +21,7 @@ This bot is intended to be run a short time (e.g. 10s) before Eventbrite event t
 2. Open Scratchpad (Shift + F4) and Open file `ticket-getter.js`
 3. Set `startTime` to the tickets opening time
 4. Click Run
-5. Call `stop();` from the console (press F12 to open) to quit
+5. Open devtools console tab (press F12) to watch progress, or type `stop();` to quit
 
 ## Screenshots
 This is what the pop-up that `ticket-info.js` script generates looks like:
