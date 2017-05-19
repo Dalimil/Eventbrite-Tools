@@ -65,7 +65,7 @@ function isTicketAvailable(source) {
 	}
 
 	const notOnSale = findAll("\"not_on_sale\":(true|false)+", source);
-	if (notOnSale[OPTIONS.ticketIndex] && notOnSale[OPTIONS.ticketIndex] == "true") {
+	if (notOnSale[OPTIONS.ticketIndex] && notOnSale[OPTIONS.ticketIndex][1] == "true") {
 		return false;
 	}
 
