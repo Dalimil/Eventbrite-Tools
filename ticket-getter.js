@@ -37,26 +37,39 @@ function post(path, params) {
 	form.submit();
 }
 
+function findAll(needle, haystack) {
+	const rx = new RegExp(needle, "g");
+	const matches = [];
+	while ((match = rx.exec(haystack)) !== null) {
+		matches.push(match);
+	}
+	return matches;
+}
+
 function getTicket(data) {
-	const findAll = (s) => {
-		const rx = new RegExp(s, "g");
-		const matches = [];
-		while ((match = rx.exec(data)) !== null) {
-			matches.push(match);
-		}
-		return matches;
-	};
-	const ticketMatches = findAll("ticket_form_element_name\":\"([^\"]+)\"");
-	console.log(ticketMatches);
+	const ticketMatches = findAll("ticket_form_element_name\":\"([^\"]+)\"", data);
+	// console.log(ticketMatches);
 	return ticketMatches[OPTIONS.ticketIndex][1];
 }
 
-function getQuantities(source) {
-	const quantities = source.match(/\"inventoryLevel\":[0-9]+/g);
-	if (!quantities) {
-		return [];
+function isTicketAvailable(source) {
+	// if the format changes and we get nulls, return true
+	// mediator only applies to the current document status
+	const mediator = require('mediatorjs');
+	const ticketData = mediator && mediator.get('ticketOrderOptions');
+	if (ticketData && ticketData.collection) {
+		const ticket = ticketData.collection[OPTIONS.ticketIndex];
+		if (ticket && (ticket.status_is_sold_out || ticket.status_is_ended)) {
+			throw new Error("SOLD OUT: " + ticket.status_is_sold_out + " or ENDED: " + ticket.status_is_ended);
+		}				
 	}
-	return quantities.map(s => s.replace(/"inventoryLevel":/, ""));
+
+	const notOnSale = findAll("\"not_on_sale\":(true|false)+", source);
+	if (notOnSale[OPTIONS.ticketIndex] && notOnSale[OPTIONS.ticketIndex] == "true") {
+		return false;
+	}
+
+	return true;
 }
 
 var scheduler = initScheduler();
@@ -65,13 +78,11 @@ var running = true;
 function run() {
 	checkLocation();
 	$.get(location.href, (data) => {
-		const quantities = getQuantities(data);
-		const notAvailable = quantities.length && !parseInt(quantities[OPTIONS.ticketIndex], 10);
 		const ticket = getTicket(data);
-		if (!ticket || notAvailable) {
+		if (!ticket || !isTicketAvailable(data)) {
 			console.log("Unsuccessful: " + (new Date()).toLocaleTimeString());
 			if (running) {
-				setTimeout(run, 500);
+				setTimeout(run, 1000);
 			}
 			return;
 		}
