@@ -25,6 +25,7 @@ function parseMediatorData(data) {
 			"status": {
 				"status_is_sold_out": item.status_is_sold_out,
 				"status_is_ended": item.status_is_ended,
+				"status_not_yet_started": item.not_yet_started,
 				"on_sale_status": item.on_sale_status
 			},
 			"dates": {
