@@ -14,7 +14,7 @@ This script allows you to find all information about Eventbrite event tickets in
 
 This bot is intended to be run a short time (e.g. 10s) before Eventbrite event tickets are released (use the `ticket-info.js` script described above to find the ticket release time). Its main purpose is to redirect your browser to the checkout page as quickly as possible, thus securing tickets for events which are sold out very quickly. 
 
-**Use the startTime script option to run it only a short time before the tickets are released because it's quite aggresive in terms of its network activity.**
+**Use the startTime script option to run it only a short time before the tickets are released because it's quite aggresive in terms of its network activity, and you don't want Eventbrite to ban you.**
 
 #### Usage
 1. Open Firefox and navigate to your Eventbrite event
