@@ -6,7 +6,7 @@
  */
 
 var OPTIONS = {
-	startTime: "2017-06-18T15:59:55", // When should this script start checking for tickets (e.g. 5 seconds before official release time)
+	startTime: "2017-05-19T15:59:55", // When should this script start checking for tickets (e.g. 5 seconds before official release time)
 	ticketIndex: 0, // There may be several ticket types in the list - set to 0 to select the first one
 	ticketQuantity: 1 // How many tickets you want to buy? - WARNING: Often limited by the event organizer to 1
 };
@@ -51,15 +51,24 @@ function getTicket(data) {
 	return ticketMatches[OPTIONS.ticketIndex][1];
 }
 
+function getQuantities(source) {
+	const quantities = source.match(/\"inventoryLevel\":[0-9]+/g);
+	if (!quantities) {
+		return [];
+	}
+	return quantities.map(s => s.replace(/"inventoryLevel":/, ""));
+}
+
 var scheduler = initScheduler();
 var running = true;
 
 function run() {
 	checkLocation();
 	$.get(location.href, (data) => {
-		// console.log(data);
+		const quantities = getQuantities(data);
+		const notAvailable = quantities.length && !parseInt(quantities[OPTIONS.ticketIndex], 10);
 		const ticket = getTicket(data);
-		if (!ticket) {
+		if (!ticket || notAvailable) {
 			console.log("Unsuccessful: " + (new Date()).toLocaleTimeString());
 			if (running) {
 				setTimeout(run, 500);

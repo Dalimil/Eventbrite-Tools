@@ -64,6 +64,13 @@ function createResultTooltip(data) {
 	document.body.appendChild(tooltip);    
 }
 
+function getQuantities(source) {
+	const quantities = source.match(/\"inventoryLevel\":[0-9]+/g);
+	if (!quantities) {
+		return [];
+	}
+	return quantities.map(s => s.replace(/"inventoryLevel":/, ""));
+}
 
 function run() {
 	checkLocation();
@@ -71,8 +78,7 @@ function run() {
 	const mediator = require('mediatorjs');
 	const data = mediator && mediator.get('ticketOrderOptions');
 	if (data) {
-		const source = document.documentElement.innerHTML;
-		const quantities = source.match(/\"inventoryLevel\":[0-9]+/g).map(s => s.replace(/"inventoryLevel":/, ""));
+		const quantities = getQuantities(document.documentElement.innerHTML);
 		if (quantities.length == data.collection.length) {
 			data.collection.forEach((item, ind) => {
 				item.number_of_tickets_remaining = item.number_of_tickets_remaining || quantities[ind];
