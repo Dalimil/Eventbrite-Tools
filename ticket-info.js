@@ -29,8 +29,8 @@ function parseMediatorData(data) {
 				"on_sale_status": item.on_sale_status
 			},
 			"dates": {
-				"sales_start": new Date(item.start_sales).toLocaleFormat(),
-				"sales_end": new Date(item.end_sales).toLocaleFormat()
+				"sales_start": new Date(item.start_sales).toLocaleString(),
+				"sales_end": new Date(item.end_sales).toLocaleString()
 			}
 		};
 	});
