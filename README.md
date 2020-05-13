@@ -5,9 +5,9 @@
 This script allows you to find all information about Eventbrite event tickets in advance - their quantity, price and release date. It is even more useful when used in combination with the Eventbrite Bot described below (`ticket-getter.js`).
 
 #### Usage
-1. Open Firefox and navigate to your Eventbrite event
-2. Open Scratchpad (Shift + F4) and Open file `ticket-info.js`
-3. Click Run
+1. Open Chrome and navigate to your Eventbrite event
+2. Open Developer Console (Option+⌘+J (on macOS), or Shift+CTRL+J (on Windows/Linux))
+3. Copy paste `ticket-info.min.js` file contents and press Enter
 
 
 ## Eventbrite Ticket Bot - [`ticket-getter.js`](https://raw.githubusercontent.com/Dalimil/Eventbrite-Tools/master/ticket-getter.js)
@@ -17,11 +17,11 @@ This bot is intended to be run a short time (e.g. 10s) before Eventbrite event t
 **Use the startTime script option to run it only a short time before the tickets are released because it's quite aggresive in terms of its network activity, and you don't want Eventbrite to ban you.**
 
 #### Usage
-1. Open Firefox and navigate to your Eventbrite event
-2. Open Scratchpad (Shift + F4) and Open file `ticket-getter.js`
-3. Set `startTime` to the tickets opening time
-4. Click Run
-5. Open devtools console tab (press F12) to watch progress, or type `stop();` to quit
+1. Open Chrome and navigate to your Eventbrite event
+2. Open Developer Console (Option+⌘+J (on macOS), or Shift+CTRL+J (on Windows/Linux))
+3. Copy paste `ticket-getter.min.js` file contents
+4. Set `startTime` to the tickets opening time and then press Enter
+5. Now just watch progress, or type `stop()` to quit
 
 ## Screenshots
 This is what the pop-up that `ticket-info.js` script generates looks like:

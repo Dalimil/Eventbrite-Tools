@@ -4,12 +4,8 @@
  * 
  * The whole project can be found here: https://github.com/Dalimil/Eventbrite-Tools
  */
-
-var OPTIONS = {
-	startTime: "2017-05-19T15:59:55", // When should this script start checking for tickets (e.g. 5 seconds before official release time)
-	ticketIndex: 0, // There may be several ticket types in the list - set to 0 to select the first one
-	ticketQuantity: 1 // How many tickets you want to buy? - WARNING: Often limited by the event organizer to 1
-};
+var stop = ((OPTIONS) => {
+OPTIONS.ticketQuantity = 1; // How many tickets you want to buy? - WARNING: Often limited by the event organizer to 1
 
 function checkLocation() {
 	if (location.href.indexOf("eventbrite") == -1) {
@@ -121,7 +117,11 @@ $(document).ready(function() {
 
 	scheduler = setTimeout(run, timeToStart);
 });
-
+return stop;
+})({
+	ticketIndex: 0, // There may be several ticket types in the list - set to 0 to select the first one
+	startTime: "2020-05-19T15:59:55", // When should this script start checking for tickets (e.g. 5 seconds before official release time)
+})
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */

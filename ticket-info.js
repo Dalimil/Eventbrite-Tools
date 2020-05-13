@@ -2,6 +2,7 @@
  * This script can be used to get Eventbrite event ticket info. It must be run from an Eventbrite event page.
  * The whole project can be found here: https://github.com/Dalimil/Eventbrite-Tools
  */
+(() => {
 
 function checkLocation() {
 	if (location.href.indexOf("eventbrite") == -1) {
@@ -29,8 +30,8 @@ function parseMediatorData(data) {
 				"on_sale_status": item.on_sale_status
 			},
 			"dates": {
-				"sales_start": new Date(item.start_sales_with_tz.utc).toLocaleString(),
-				"sales_end": new Date(item.end_sales_with_tz.utc).toLocaleString()
+				"sales_start": item.start_sales_with_tz ? new Date(item.start_sales_with_tz.utc).toLocaleString() : 'unavailable',
+				"sales_end": item.end_sales_with_tz ? new Date(item.end_sales_with_tz.utc).toLocaleString() : 'unavailable'
 			}
 		};
 	});
@@ -97,8 +98,9 @@ function run() {
 	console.log(resultString);
 	createResultTooltip(resultString);
 }
-
 run();
+
+})();
 
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
